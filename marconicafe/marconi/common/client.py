@@ -16,6 +16,7 @@ limitations under the License.
 
 from cafe.engine.http.client import AutoMarshallingHTTPClient
 
+
 class BaseMarconiClient(AutoMarshallingHTTPClient):
     def __init__(self, url=None, serialize_format=None,
                  deserialize_format=None, auth_token=None):

@@ -35,22 +35,3 @@ class MessageListModel(BaseMarconiListModel):
         for model in self:
             ret_val.append(model._obj_to_dict())
         return ret_val
-
-
-
-
-
-"""
-
-[
-   {
-      "ttl":300,
-      "body":{"event":"BackupStarted"}
-   },
-   {
-      "ttl":60,
-      "body":{"play":"hockey"}
-   }
-]
-
-"""

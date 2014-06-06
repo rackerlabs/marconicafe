@@ -16,7 +16,7 @@ limitations under the License.
 import json
 
 from marconicafe.marconi.common.client import BaseMarconiClient
-from marconicafe.marconi.models import requests, responses
+from marconicafe.marconi.models import responses
 
 
 class MarconiClient(BaseMarconiClient):
@@ -48,7 +48,7 @@ class MarconiClient(BaseMarconiClient):
     def set_queue_metadata(
             self, queue_name=None, metadata=None, requestslib_kwargs=None):
         url = '{0}/queues/{1}/metadata'.format(self.url, queue_name)
-        data = "" if metadata == None else json.dumps(metadata)
+        data = "" if metadata is None else json.dumps(metadata)
         return self.put(url, data=data, requestslib_kwargs=requestslib_kwargs)
 
     def get_metadata(self, queue_name=None, requestslib_kwargs=None):
@@ -57,7 +57,8 @@ class MarconiClient(BaseMarconiClient):
 
     def get_queue_stats(self, queue_name=None, requestslib_kwargs=None):
         url = '{0}/queues/{1}/stats'.format(self.url, queue_name)
-        return self.get(url, #response_entity_type=responses.TenantList,
+        return self.get(
+            url,  # response_entity_type=responses.TenantList,
             requestslib_kwargs=requestslib_kwargs)
 
     def post_message(self, queue_name, model, requestslib_kwargs=None):
@@ -66,35 +67,32 @@ class MarconiClient(BaseMarconiClient):
         return self.post(
             url, request_entity=model, headers=headers,
             requestslib_kwargs=requestslib_kwargs)
+
 """
-POST /v1/queues/{queue_name}/messages Posts the message or messages for a specified queue.
-GET /v1/queues/{queue_name}/messages{?
-marker,limit,echo,include_claimed}
+GET /v1/queues/{queue_name}/messages{?marker,limit,echo,include_claimed}
 Gets the message or messages in a specified queue.
-GET /v1/queues/{queue_name}/messages{?
-ids}
-Gets the specified set of messages from the specified
-queue.
-DELETE /v1/queues/{queue_name}/messages{?
-ids}
+
+GET /v1/queues/{queue_name}/messages{?ids}
+Gets the specified set of messages from the specified queue.
+
+DELETE /v1/queues/{queue_name}/messages{?ids}
 Bulk-deletes for messages.
-GET /v1/queues/{queue_name}/messages/
-{messageId}
-Shows details for the specified message from the specified
-queue.
-DELETE /v1/queues/{queue_name}/messages/
-{messageId}{?claim_id}
+
+GET /v1/queues/{queue_name}/messages/{messageId}
+Shows details for the specified message from the specified queue.
+
+DELETE /v1/queues/{queue_name}/messages/{messageId}{?claim_id}
 Deletes the specified message from the specified queue.
-Claims
-POST /v1/queues/{queue_name}/claims{?
-limit}
+
+POST /v1/queues/{queue_name}/claims{?limit}
 Claims a set of messages from a specified queue.
-GET /v1/queues/{queue_name}/claims/
-{claimId}
+
+GET /v1/queues/{queue_name}/claims/{claimId}
 Queries the specified claim for a specified queue.
-PATCH /v1/queues/{queue_name}/claims/
-{claimId}
+
+PATCH /v1/queues/{queue_name}/claims/{claimId}
 Updates the specified claim for a specified queue.
-DELETE /v1/queues/{queue_name}/claims/
-{claimId}
-Releases the specified claim for the specified q"""
+
+DELETE /v1/queues/{queue_name}/claims/{claimId}
+Releases the specified claim for the specified queue
+"""
